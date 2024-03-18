@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/sidebar.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .admin-content .card {
+            background: linear-gradient(to right, #007BFF 50%, #fff 50%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            transition: all 0.5s ease-out;
+        }
+
+        .admin-content .card:hover {
+            background-position: left bottom;
+        }
+
+        .admin-content .card h2 {
+            margin-top: 5px;
+        }
+
+        @media screen and (max-width: 854px) {
+            .admin-content .card h2 {
+                font-size: 14px;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #303956;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="dashboard">
+
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn text-white" onclick="closeNav()">×</a>
+                <img class="bg-[#5567FF] p-1 h-[70px] mx-auto" src=" /images/sidebar-image.svg" alt="">
+                <div class="sidebar-links flex flex-col mt-8 gap-6 items-center text-white text-[20px]">
+                    <a href="/dashboard"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Dashboard</a>
+                    <a href="/createCourse"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Create Course</a>
+                    <a href="/manageCourse"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Manage
+                        Courses</a>
+                    <a href="/createEvent"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Create Event</a>
+                    <a href="/manageEvent"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Manage
+                        Events</a>
+                    <a href="/logout" class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Logout</a>
+                </div>
+            </div>
+            <div id="right-dashboard">
+                <div class="nav flex items-center justify-between w-full py-4 px-6 border-b-2 border-gray-200 	">
+                    <div class="left flex items-center gap-3">
+                        <img class="h-[40px]" src="/images/tcps logo.jpeg" alt="">
+                        <h1 class="font-semibold">TCPS Admin Panel</h1>
+                    </div>
+                    <div class="right flex items-center gap-2">
+                        <button class="openbtn" onclick="openNav()">☰</button>
+                    </div>
+                </div>
+                <!-- Admin Panel Content -->
+                <div class="admin-content p-6 flex flex-col sm:flex-row gap-6">
+                    <div
+                        class="card h-[150px] w-full sm:w-[300px] bg-[#fff] border-l-2 border-sky-500 rounded-lg text-center hover:text-[#fff]">
+                        <img class="mx-auto" src="/images/totalStudent-icons.png" alt="">
+                        <h2>Total Student : 28</h2>
+                    </div>
+                    <div
+                        class="card h-[150px] w-full sm:w-[300px] bg-[#fff] border-l-2 border-sky-500 rounded-lg text-center hover:text-[#fff]">
+                        <img class="mx-auto" src="/images/course-icon.png" alt="">
+                        <h2>Total Courses : 15</h2>
+                    </div>
+                    <div
+                        class="card h-[150px] w-full sm:w-[300px] bg-[#fff] border-l-2 border-sky-500 rounded-lg text-center hover:text-[#fff]">
+                        <img class="mx-auto" src="/images/fees-icon.png" alt="">
+                        <h2>Fees Collection : 42738 ₹</h2>
+                    </div>
+                </div>
+
+                <!-- Admin Panel Content -->
+                <!-- Histogram -->
+                <canvas id="myChart"></canvas>
+                <!-- Histogram -->
+                <!-- all users table -->
+                <div class="w-full bg-[#fff] py-3 px-6 text-[18px] font-semibold mt-4">
+                    <h1>All Enrolled Students</h1>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Date of Admit</th>
+                            <!-- Add more headers as needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Replace with actual data -->
+                        <tr>
+                            <td>1</td>
+                            <td>Harvey Specter</td>
+                            <td>2022-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Emily Doe</td>
+                            <td>2022-01-02</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Chloe sans</td>
+                            <td>2022-01-02</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Gabriel lee</td>
+                            <td>2022-01-02</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>bret pet</td>
+                            <td>2022-01-02</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+                <!-- all users table -->
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: '# of Admission',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="/js/sidebar.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/sidebar.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .admin-content .card {
+            background: linear-gradient(to right, #007BFF 50%, #fff 50%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            transition: all 0.5s ease-out;
+        }
+
+        .admin-content .card:hover {
+            background-position: left bottom;
+        }
+
+        .admin-content .card h2 {
+            margin-top: 5px;
+        }
+
+        @media screen and (max-width: 854px) {
+            .admin-content .card h2 {
+                font-size: 14px;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #303956;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="dashboard">
+
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn text-white" onclick="closeNav()">×</a>
+                <img class="bg-[#5567FF] p-1 h-[70px] mx-auto" src=" /images/sidebar-image.svg" alt="">
+                <div class="sidebar-links flex flex-col mt-8 gap-6 items-center text-white text-[20px]">
+                    <a href="/dashboard"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Dashboard</a>
+                    <a href="/createCourse"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Create Course</a>
+                    <a href="/manageCourse"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Manage
+                        Courses</a>
+                    <a href="/createEvent"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Create Event</a>
+                    <a href="/manageEvent"
+                        class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Manage
+                        Events</a>
+                    <a href="/logout" class="transition duration-200 ease-in hover:scale-110 hover:font-bold">Logout</a>
+                </div>
+            </div>
+            <div id="right-dashboard">
+                <div class="nav flex items-center justify-between w-full py-4 px-6 border-b-2 border-gray-200 	">
+                    <div class="left flex items-center gap-3">
+                        <img class="h-[40px]" src="/images/tcps logo.jpeg" alt="">
+                        <h1 class="font-semibold">TCPS Admin Panel</h1>
+                    </div>
+                    <div class="right flex items-center gap-2">
+                        <button class="openbtn" onclick="openNav()">☰</button>
+                    </div>
+                </div>
+
+
+                <!-- Create Event  -->
+                <div class=" p-8 rounded shadow-md w-full">
+                    <h2 class="text-2xl font-bold mb-8 text-blue-500 text-center">🎊 Create An Event 🎊</h2>
+                    <form action="/createCourse" method="POST">
+
+                        <div class="mb-5">
+                            <label for="courseName" class="block mb-2 text-sm text-gray-600">Event Name</label>
+                            <input type="text" id="courseName" name="courseName"
+                                class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-100 focus:border-blue-300"
+                                required>
+                        </div>
+                        <div class="mb-5">
+                            <label for="courseDescription" class="block mb-2 text-sm text-gray-600">Event
+                                Description</label>
+                            <textarea id="courseDescription" name="courseDescription"
+                                class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-100 focus:border-blue-300"
+                                required></textarea>
+                        </div>
+                        <div class="mb-5">
+                            <label for="courseFile" class="block mb-2 text-sm text-gray-600">Upload Image
+                                File</label>
+                            <input type="file" id="courseFile" name="courseFile"
+                                class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-100 focus:border-blue-300"
+                                required>
+                        </div>
+                        <button type="submit"
+                            class="w-full py-2 px-4 border border-transparent rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-700 transition duration-150 ease-in-out">Create
+                            Event</button>
+                    </form>
+                </div>
+                <!-- Create Event  -->
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/js/sidebar.js"></script>
+</body>
+
+</html>
