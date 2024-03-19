@@ -56,6 +56,26 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+
+
+
+        .admin-products button {
+            background-color: #e01a0c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .back-button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -95,32 +115,35 @@
 
 
                 <!-- Create Event  -->
+                <div class="backBtn w-full px-6 py-3">
+                    <button class="back-button" onclick="window.history.back()">
+                        << Go Back</button>
+                </div>
                 <div class=" p-8 rounded shadow-md w-full">
-                    <h2 class="text-2xl font-bold mb-8 text-blue-500 text-center">🎊 Create An Event 🎊</h2>
-                    <form action="/createEvent" method="POST" enctype="multipart/form-data">
-
-                        <div class="mb-5">
+                    <h2 class="text-2xl font-bold mb-8 text-blue-500 text-center">📚 Edit Event 📚</h2>
+                    <form action="/editEvent/<%=event._id%>" method="POST">
+                        <label for="eventImage" class="block mb-2 text-sm text-gray-600">Event Image</label>
+                        <img class="mb-2" style="height: 200px;width: 300px;object-fit: cover;"
+                            src="<%=event.eventImage%>" alt="">
+                        <div class="mb-5 ">
                             <label for="eventName" class="block mb-2 text-sm text-gray-600">Event Name</label>
-                            <input type="text" id="eventName" name="eventName"
+                            <input type="text" id="eventName" name="eventName" value="<%=event.eventName%>"
                                 class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-100 focus:border-blue-300"
                                 required>
                         </div>
                         <div class="mb-5">
                             <label for="eventDescription" class="block mb-2 text-sm text-gray-600">Event
                                 Description</label>
-                            <textarea id="eventDescription" name="eventDescription"
+                            <input id="eventDescription" type="text" name="eventDescription"
                                 class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-100 focus:border-blue-300"
-                                required></textarea>
+                                value="<%= event.eventDescription %>" required>
+
                         </div>
-                        <div class="mb-5">
-                            <label for="eventImage" class="block mb-2 text-sm text-gray-600">Upload Image
-                                File</label>
-                            <input type="file" id="eventImage" name="eventImage"
-                                class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-100 focus:border-blue-300"
-                                required>
-                        </div>
+
+
+
                         <button type="submit"
-                            class="w-full py-2 px-4 border border-transparent rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-700 transition duration-150 ease-in-out">Create
+                            class="w-full py-2 px-4 border border-transparent rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-700 transition duration-150 ease-in-out">Edit
                             Event</button>
                     </form>
                 </div>

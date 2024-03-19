@@ -8,10 +8,6 @@ const eventSchema = new mongoose.Schema({
         required:[true,"eventName is required"],
         minLength:[3,"eventName must be at least 3 characters long"],
     },
-    eventDate:{
-        type:Date,
-        required:[true,"eventDate is required"],
-    },
     eventImage:{
         type:String,
         trim:true,

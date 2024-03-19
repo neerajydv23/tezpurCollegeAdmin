@@ -2,6 +2,7 @@ const express = require('express');
 const router= express.Router();
 const userModel = require("./users");
 const courseModel = require("./course");
+const eventModel = require("./event");
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
@@ -40,6 +41,35 @@ router.get('/createCourse', isLoggedIn,(req, res) => {
 });
 router.get('/createEvent', isLoggedIn,(req, res) => {
   res.render('createEvent');
+});
+router.post('/createEvent', isLoggedIn,async (req, res) => {
+  const event = req.files.eventImage;
+  cloudinary.uploader.upload(event.tempFilePath, async function (err, result) {
+    if (err) return next(err);
+    const newEvent = new eventModel({
+      eventName: req.body.eventName,
+      eventDescription: req.body.eventDescription,
+      eventImage: result.secure_url,
+    });
+    await newEvent.save();
+    req.flash('success', 'Event created successfully');
+    res.redirect('/manageEvent');
+  })
+});
+router.get('/manageEvent', isLoggedIn, async function (req, res, next) {
+  try {
+    const events = await eventModel.find({});
+
+    // Pass flash messages to the template
+    const successMessage = req.flash('success');
+    const errorMessage = req.flash('error');
+
+    res.render('manageEvent', { events, successMessage, errorMessage });
+  } catch (error) {
+    console.error("Error fetching event:", error);
+    req.flash('error', 'Failed to fetch event data');
+    res.redirect('/dashboard'); // Redirect to a suitable page in case of error
+  }
 });
 router.get('/manageCourse', isLoggedIn, async function (req, res, next) {
   try {
@@ -105,6 +135,55 @@ router.get('/deleteCourse/:id', isLoggedIn, async function (req, res, next) {
     console.error("Error deleting course:", error);
     req.flash('error', 'Failed to delete course');
     res.redirect('/manageCourse');
+}
+});
+
+router.get('/editEvent/:id', isLoggedIn, async function (req, res, next) {
+  const event = await eventModel.findById(req.params.id);
+  res.render('editEvent', { event });
+});
+
+router.post('/editEvent/:id', isLoggedIn, async function (req, res, next) {
+  try {
+    const event = await eventModel.findByIdAndUpdate(req.params.id, {
+      eventeName: req.body.eventeName,
+      eventeDescription: req.body.eventeDescription,
+     
+    }, { new: true });
+    await event.save();
+
+    // Set flash message
+    req.flash('success', 'Event details updated successfully');
+
+    res.redirect('/manageEvent');
+  } catch (error) {
+    // Handle error appropriately
+    console.error("Error updating product:", error);
+    req.flash('error', 'Failed to update product details');
+    res.redirect('/manageProducts');
+  }
+});
+
+router.get('/deleteEvent/:id', isLoggedIn, async function (req, res, next) {
+  try {
+    const event = await eventModel.findById(req.params.id);
+
+    // Delete the image from Cloudinary
+    const imageURL = event.eventImage;
+    const publicID = imageURL.split('/').pop().split('.')[0];
+    await cloudinary.uploader.destroy(publicID);
+
+    // Delete the event from the database
+    await eventModel.findByIdAndDelete(req.params.id);
+
+    // Set flash message
+    req.flash('success', 'Event deleted successfully');
+
+    res.redirect('/manageEvent');
+} catch (error) {
+    console.error("Error deleting event:", error);
+    req.flash('error', 'Failed to delete event');
+    res.redirect('/manageEvent');
 }
 });
 
