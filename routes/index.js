@@ -185,20 +185,22 @@ router.post('/register',async function(req,res,next){
   });
   
   
-  function isLoggedIn(req, res, next) {
+   function isLoggedIn(req, res, next) {
     const token = req.cookies.token;
   
     if (token == null) return res.redirect('/login');
   
-    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, user) => {
       if (err) {
-        if (err.name === 'TokenExpiredError') {
-          return res.redirect('/login');
-        }
         return res.redirect('/login');
       }
+      const userRole = await userModel.findById(user._id);
+      if (userRole.role != 'admin') {
+        return res.redirect('/login');
+    } else {
       req.user = user;
       next();
+    }
     });
   }
 
