@@ -209,9 +209,15 @@ router.post('/login', async function (req, res, next) {
     const user = await userExist.comparePassword(password);
 
     if (user) {
-      const token = await userExist.generateToken();
-      res.cookie('token', token, { httpOnly: true }); // Set token as a cookie
+       // Check if the user's role is 'admin'
+      if (userExist.role === 'admin') {
+        const token = await userExist.generateToken();
+        res.cookie('token', token, { httpOnly: true }); // Set token as a cookie
         res.redirect('/dashboard');
+      } else {
+        // If the user's role is not 'admin', redirect to the '/' page
+        res.redirect('/');
+      }
     } else {
       req.flash('error', 'Invalid credentials');
       return res.redirect('/login');
